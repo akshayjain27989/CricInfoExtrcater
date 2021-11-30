@@ -25,7 +25,7 @@ responseKaPromise.then(function (response) {
       t1s: " ",
       t2s: " ",
       result: " "
-      // ye ek match ka object hai , hume sare objects ko matches array me push krna hai , sare match object me match ki sari properties jayegi 
+     
     };
 
     let resultSpan = matchDiv.querySelector("div.status-text>span");
@@ -61,8 +61,7 @@ responseKaPromise.then(function (response) {
 
   }
 
-  //This function will push all the teams in teams array , each team has its separate object , inside the object there will be all the matches that the team playes with its competitors
-  function PutTeamsInTeamsArrayIfMissing(teams, match) {
+    function PutTeamsInTeamsArrayIfMissing(teams, match) {
     let t1index = -1;
     //checking if the team 1 is presnt in teams array or not 
     for (let i = 0; i < teams.length; i++) {
@@ -71,7 +70,7 @@ responseKaPromise.then(function (response) {
         break;
       }
     }
-    // if team 1 is not present in the teams array then we need to push it in the teams array
+ 
     if (t1index == -1) {
       teams.push(
         {
@@ -84,14 +83,14 @@ responseKaPromise.then(function (response) {
     }
 
     let t2index = -1;
-    //checking if the team 2 is presnt in teams array or not 
+  
     for (let i = 0; i < teams.length; i++) {
       if (teams[i].name == match.t2) {
         t2index = i;
         break;
       }
     }
-    // if team 2 is not present in the teams array then we need to push it in the teams array
+ 
     if (t2index == -1) {
       teams.push(
         {
@@ -103,7 +102,7 @@ responseKaPromise.then(function (response) {
 
     }
   }
-  //This function will push the data of each match of each team in teams array                                    
+                                  
   function PutMatchesInAppropriateTeams(teams, match) {
 
     //  pushing data of team 1 matches in teams array
@@ -112,11 +111,11 @@ responseKaPromise.then(function (response) {
     for (let i = 0; i < teams.length; i++) {
       if (teams[i].name == match.t1) {
         t1index = i;
-        break;//ye hume pta chlgya ki match ki team 1 teams array me konse index pr hai
+        break;
       }
     }
 
-    //let team1=;//jis index par team 1 hai team array me us team ka object hai team1
+
     teams[t1index].matches.push
       (
         {
@@ -127,14 +126,14 @@ responseKaPromise.then(function (response) {
         }
       );
 
-    // pushing data of teams 2 of match in teams array // har time ka data 2 bar aayega , ek bar khudki team folder me aur ek opponent ki team folder me
+   
 
 
     let t2index = 0;
     for (let i = 0; i < teams.length; i++) {
       if (teams[i].name == match.t2) {
         t2index = i;
-        break;//ye hume pta chlgya ki match ki team 1 teams array me konse index pr hai
+        break;
       }
     }
 
@@ -151,36 +150,7 @@ responseKaPromise.then(function (response) {
 
 
 
-    // for(let i=0;i<teams.length;i++)
-    // {
-    //     if(teams[i].name==match.t1)
-    //     {
-    //         teams[i].matches.push(
-    //             {
-    //                 vs:match.t2,
-    //                 selfscore:match.t1s,
-    //                 oppscore:match.t2s,
-    //                 result:match.result
-    //             }
-    //         );
-    //     }
-
-    // }
-
-    // for(let i=0;i<teams.length;i++)
-    // {
-    // if(teams[i].name==match.t2)
-    //     {
-    //         teams[i].matches.push(
-    //             {
-    //                 vs:match.t1,
-    //                 selfscore:match.t2s,
-    //                 oppscore:match.t1s,
-    //                 result:match.result
-    //             }
-    //         );
-    // }
-    // }
+   
 
 
   }
@@ -194,27 +164,7 @@ responseKaPromise.then(function (response) {
   createExcelFileWithWorkBookAndWorkSheet(teams);//,args.excelWorkBook);
   createFolders(teams);
 
-  // function createExcelFileWithWorkBookAndWorkSheet(teams,excelFileName)
-  // {
-  //     let wb=new excel.Workbook(); 
-  //     for(let i=0;i<teams.length;i++)
-  //     {
-  //       let sheet=wb.addWorksheet(teams[i].name);
-  //       sheet.cell(1,1).string("Vs");
-  //       sheet.cell(1,2).string("Self Score");
-  //       sheet.cell(1,3).string("Opponent Score");
-  //       sheet.cell(1,4).string("Result");
-  //       for(let j=0;i<teams[i].matches.length;i++)
-  //       {
 
-  //         sheet.cell(2+j,1).string(teams[i].matches[j].Vs);
-  //         sheet.cell(2+j,2).string(teams[i].matches[j].SelfScore);
-  //         sheet.cell(2+j,3).string(teams[i].matches[j].OpponentScore);
-  //         sheet.cell(2+j,4).string(teams[i].matches[j].result);
-  //       }
-  //     }
-  //     wb.write("args.excelWorkBook");                           
-  // }
 
   function createExcelFileWithWorkBookAndWorkSheet(teams) {
     let wb = new excel.Workbook();
@@ -264,7 +214,7 @@ responseKaPromise.then(function (response) {
 
   function createMatchScoreCardPDF(teamFolderName, selfName, match) {
     let matchFileName = path.join(teamFolderName, match.Vs);
-   // fs.writeFileSync(matchFileName + ".pdf", "utf-8");//ekbar dekhre hai ki pdf file bnrhi hai ya nhi
+
     let TemplateFileBytes = fs.readFileSync("Template.pdf");
     let pdfDocKaPromise = pdf.PDFDocument.load(TemplateFileBytes);
     pdfDocKaPromise.then(function (pdfDoc) {
@@ -335,12 +285,7 @@ responseKaPromise.then(function (response) {
         
 
 
-        //  if (fs.existsSync(matchFileName ) == true) {
-        //    fs.writeFileSync(matchFileName + "1.pdf", changedBytes);
-        //  }
-        //  else {
-        //    fs.writeFileSync(matchFileName,changedBytes);
-        //  }
+ 
       });
     })
   }
